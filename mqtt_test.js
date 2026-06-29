@@ -1,10 +1,10 @@
 import mqtt from 'mqtt';
 
 console.log("Connecting to MQTT...");
-const client = mqtt.connect('mqtts://g7c2f900.ala.asia-southeast1.emqxsl.com:8883', {
+const client = mqtt.connect('mqtts://*******YOUR ID', {
   clientId: 'node_test_' + Math.random().toString(16).substr(2, 8),
-  username: 'blood_loss',
-  password: '12345678',
+  username: '******',
+  password: '*****',
   rejectUnauthorized: false
 });
 
