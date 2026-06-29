@@ -5,8 +5,8 @@
 #include <PubSubClient.h>
 
 // --- Network & MQTT Settings ---
-const char* ssid = "srm123";
-const char* password = "12345678";
+const char* ssid = "SSID";
+const char* password = "PASSWORD";
 
 const char* mqtt_server = "broker.emqx.io";
 const int mqtt_port = 8883; // MQTT over TLS/SSL
