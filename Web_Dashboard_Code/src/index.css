@@ -1,0 +1,220 @@
+:root {
+  --bg-color: #000000;
+  --panel-bg: #111111;
+  --panel-border: #333333;
+  
+  --color-ecg: #00ff00;    /* Neon Green for ECG / HR */
+  --color-spo2: #00ffff;   /* Cyan for SpO2 */
+  --color-nibp: #ff0000;   /* Red for Blood Pressure */
+  --color-blood: #ff0055;  /* Deep Red/Pink for Blood Loss */
+  --color-text: #ffffff;
+  --color-text-dim: #888888;
+  
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--panel-bg);
+  border-bottom: 1px solid var(--panel-border);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.patient-info {
+  display: flex;
+  gap: 20px;
+  color: var(--color-text-dim);
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff0000; /* Red by default (disconnected) */
+  box-shadow: 0 0 8px #ff0000;
+}
+
+.status-dot.connected {
+  background-color: #00ff00;
+  box-shadow: 0 0 8px #00ff00;
+}
+
+/* Main Layout */
+.dashboard-content {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 50px);
+}
+
+/* Vitals Monitor (Left Side) */
+.vitals-monitor {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--panel-border);
+  padding: 20px;
+  gap: 20px;
+}
+
+.vital-row {
+  display: flex;
+  flex: 1;
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 20px;
+}
+
+.vital-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.vital-waveform {
+  flex: 3;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+}
+
+.vital-waveform canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.vital-data {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-left: 20px;
+}
+
+.vital-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.vital-value {
+  font-size: 5rem;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 0 10px currentColor;
+}
+
+.vital-unit {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+/* Specific Vitals Colors */
+.vital-ecg { color: var(--color-ecg); }
+.vital-spo2 { color: var(--color-spo2); }
+.vital-nibp { color: var(--color-nibp); }
+
+/* Blood Loss Panel (Right Side) */
+.blood-loss-panel {
+  flex: 1;
+  background-color: var(--panel-bg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blood-panel-title {
+  color: var(--color-blood);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--panel-border);
+  text-shadow: 0 0 8px var(--color-blood);
+}
+
+.blood-metric {
+  background: rgba(255, 0, 85, 0.05);
+  border: 1px solid rgba(255, 0, 85, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blood-metric:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 0, 85, 0.15);
+}
+
+.blood-metric-label {
+  color: var(--color-text-dim);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.blood-metric-value {
+  color: var(--color-blood);
+  font-size: 3.5rem;
+  font-weight: bold;
+  font-family: var(--font-mono);
+  text-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+}
+
+.blood-metric-unit {
+  font-size: 1rem;
+  color: var(--color-text-dim);
+  margin-top: 5px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.blinking {
+  animation: pulse 1s infinite;
+}
